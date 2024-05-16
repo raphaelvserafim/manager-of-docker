@@ -1,0 +1,32 @@
+{
+  "name": "manager-of-docker",
+  "version": "1.0.0",
+  "description": "Manager of Docker to api-wa.me",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "author": "Raphael Serafim",
+  "license": "MIT",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "docker-modem": "^5.0.3",
+    "dockerode": "^3.2.1",
+    "dotenv": "^8.2.0",
+    "exec-sh": "^0.3.4",
+    "flatted": "^3.1.1",
+    "koa": "^2.13.0",
+    "koa-router": "^10.0.0",
+    "node-docker-api": "^1.1.22",
+    "node-wget-js": "^1.0.1",
+    "tcp-port-used": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/docker-modem": "^3.0.6",
+    "@types/koa": "^2.15.0",
+    "@types/koa-router": "^7.4.8",
+    "@types/tcp-port-used": "^1.0.4",
+    "typescript": "^5.4.5"
+  }
+}
