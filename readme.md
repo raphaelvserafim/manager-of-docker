@@ -18,3 +18,13 @@ ADMIN_KEY="1234"
 IMAGE_NAME="wame"
 PORT=3002
 ```
+
+#### Routes
+
+```js
+GET/v2/ADMIN_KEY/list //list containers
+GET/v2/ADMIN_KEY/key/run //create a container
+GET/v2/ADMIN_KEY/key/start //start a container
+GET/v2/ADMIN_KEY/key/stop //stop a container
+GET/v2/ADMIN_KEY/key/delete //delete a container
+```
