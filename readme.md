@@ -28,3 +28,8 @@ GET/v2/ADMIN_KEY/key/start //start a container
 GET/v2/ADMIN_KEY/key/stop //stop a container
 GET/v2/ADMIN_KEY/key/delete //delete a container
 ```
+
+
+```sh
+docker build -t name  /path
+```
