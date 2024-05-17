@@ -2,12 +2,10 @@ import { Docker } from 'node-docker-api';
 import tcpPortUsed from 'tcp-port-used';
 //@ts-ignore
 import execShPromise from 'exec-sh';
-
 import { envs } from '../configs/env';
 import { createFile, removeFile } from './nginx';
 
-const dc = new Docker({});
-
+const dc = new Docker({ socketPath: envs.socketPath });
 const image = envs.imageName;
 
 export default class Manager {
@@ -143,14 +141,13 @@ export default class Manager {
   static async listContainers() {
     try {
       let command = await execShPromise('docker ps --format \'{{json .}}\'', true);
-      const containers = JSON.parse(command.stdout);
-
-      
+      const stdoutString = String(command.stdout);
+      const lines = stdoutString.trim().split('\n');
+      const containers = lines.map(line => JSON.parse(line));
       if (containers.length === 0) {
         return { status: 200, message: 'No containers are currently running.' };
       }
-
-      return containers;
+      return { status: 200, containers };
     } catch (error: any) {
       return { status: 500, message: error.message };
     }
