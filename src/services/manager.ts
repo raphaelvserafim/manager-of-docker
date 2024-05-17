@@ -143,7 +143,14 @@ export default class Manager {
   static async listContainers() {
     try {
       let command = await execShPromise('docker ps --format \'{{json .}}\'', true);
-      return JSON.parse(command.stdout);
+      const containers = JSON.parse(command.stdout);
+
+      
+      if (containers.length === 0) {
+        return { status: 200, message: 'No containers are currently running.' };
+      }
+
+      return containers;
     } catch (error: any) {
       return { status: 500, message: error.message };
     }
