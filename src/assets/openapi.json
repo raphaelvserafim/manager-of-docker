@@ -1,0 +1,1184 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Api documentation",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Actions"
+        },
+        {
+            "name": "Business"
+        },
+        {
+            "name": "Groups"
+        },
+        {
+            "name": "Instance"
+        },
+        {
+            "name": "Sending Message"
+        }
+    ],
+    "paths": {
+        "/{key}/actions/infor": {
+            "get": {
+                "tags": [
+                    "Actions"
+                ],
+                "operationId": "actionsGet",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/business": {
+            "get": {
+                "tags": [
+                    "Business"
+                ],
+                "operationId": "businessGet",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/groups": {
+            "get": {
+                "tags": [
+                    "Groups"
+                ],
+                "operationId": "groupsGet",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/info": {
+            "get": {
+                "tags": [
+                    "Instance"
+                ],
+                "summary": "Get instance information",
+                "operationId": "instanceInfo",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/qrcode": {
+            "get": {
+                "tags": [
+                    "Instance"
+                ],
+                "summary": "Generate QrCode",
+                "operationId": "instanceQrCode",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}": {
+            "put": {
+                "tags": [
+                    "Instance"
+                ],
+                "summary": "Update webhook",
+                "operationId": "instanceWebhook",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Webhook"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Instance"
+                ],
+                "summary": "Logout",
+                "operationId": "instanceLogout",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/presence": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a presence update",
+                "operationId": "sendingMessageSendingPresence",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingPresence"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/text": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a text message",
+                "operationId": "sendingMessageSendingText",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingText"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/audio": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send an audio message",
+                "operationId": "sendingMessageSendingAudio",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingAudio"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/image": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send an image message",
+                "operationId": "sendingMessageSendingImage",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingImage"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/video": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a video message",
+                "operationId": "sendingMessageSendingVideo",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingVideo"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/document": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a document message",
+                "operationId": "sendingMessageSendingDocument",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingDocument"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/contact": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a contact message",
+                "operationId": "sendingMessageSendingContact",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingContact"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/location": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a location message",
+                "operationId": "sendingMessageSendingLocation",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingLocation"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/reaction": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a reaction message",
+                "operationId": "sendingMessageSendingReaction",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingReaction"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/survey": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a survey message",
+                "operationId": "sendingMessageSendingSurvey",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingSurvey"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/list": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a list message",
+                "operationId": "sendingMessageSendingList",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingList"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/base64/image": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send an image message encoded in base64",
+                "operationId": "sendingMessageSendingImageBase64",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingImageBase64"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/base64/audio": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send an audio message encoded in base64",
+                "operationId": "sendingMessageSendingAudioBase64",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingAudioBase64"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/{key}/message/base64/document": {
+            "post": {
+                "tags": [
+                    "Sending Message"
+                ],
+                "summary": "Send a document message encoded in base64",
+                "operationId": "sendingMessageSendingDocumentBase64",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "explode": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sendingDocumentBase64"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Webhook": {
+                "required": [
+                    "allowWebhook",
+                    "webhookConnection",
+                    "webhookGroup",
+                    "webhookHistory",
+                    "webhookMessage",
+                    "webhookMessageFromMe",
+                    "webhookQrCode"
+                ],
+                "type": "object",
+                "properties": {
+                    "allowWebhook": {
+                        "type": "boolean",
+                        "example": true,
+                        "enum": [
+                            true,
+                            false
+                        ]
+                    },
+                    "webhookMessage": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://webhook.site/"
+                    },
+                    "webhookGroup": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://webhook.site/"
+                    },
+                    "webhookConnection": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://webhook.site/"
+                    },
+                    "webhookQrCode": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://webhook.site/"
+                    },
+                    "webhookMessageFromMe": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://webhook.site/"
+                    },
+                    "webhookHistory": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://webhook.site/"
+                    }
+                }
+            },
+            "sendingPresence": {
+                "required": [
+                    "status",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "status": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "composing",
+                        "enum": [
+                            "unavailable",
+                            "available",
+                            "composing",
+                            "recording",
+                            "paused"
+                        ]
+                    }
+                }
+            },
+            "sendingText": {
+                "required": [
+                    "text",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "text": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "Hey !"
+                    }
+                }
+            },
+            "sendingAudio": {
+                "required": [
+                    "to",
+                    "url"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "url": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://url-audio"
+                    }
+                }
+            },
+            "sendingImage": {
+                "required": [
+                    "to",
+                    "url"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "url": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://url-image"
+                    },
+                    "caption": {
+                        "type": "string"
+                    }
+                }
+            },
+            "sendingVideo": {
+                "required": [
+                    "to",
+                    "url"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "url": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "https://url-video"
+                    },
+                    "caption": {
+                        "type": "string"
+                    }
+                }
+            },
+            "sendingDocument": {
+                "required": [
+                    "mimetype",
+                    "to",
+                    "url"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "url": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "mimetype": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "fileName": {
+                        "type": "string"
+                    },
+                    "caption": {
+                        "type": "string"
+                    }
+                }
+            },
+            "sendingContact": {
+                "required": [
+                    "contact",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "contact": {
+                        "$ref": "#/components/schemas/Contact"
+                    }
+                }
+            },
+            "Contact": {
+                "required": [
+                    "fullName",
+                    "phoneNumber"
+                ],
+                "type": "object",
+                "properties": {
+                    "fullName": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "Raphael Serafim"
+                    },
+                    "organization": {
+                        "type": "string",
+                        "example": "api-wa.me"
+                    },
+                    "phoneNumber": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    }
+                }
+            },
+            "sendingLocation": {
+                "required": [
+                    "location",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                }
+            },
+            "Location": {
+                "required": [
+                    "address",
+                    "latitude",
+                    "longitude"
+                ],
+                "type": "object",
+                "properties": {
+                    "latitude": {
+                        "type": "number",
+                        "example": 37.7749
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "example": -122.4194
+                    },
+                    "address": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "123 Main St, San Francisco, CA"
+                    }
+                }
+            },
+            "sendingReaction": {
+                "required": [
+                    "msgId",
+                    "text",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "text": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "👽"
+                    },
+                    "msgId": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "ABSHDGHRYA"
+                    }
+                }
+            },
+            "sendingSurvey": {
+                "required": [
+                    "name",
+                    "options",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "name": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "Do you like PHP?"
+                    },
+                    "options": {
+                        "type": "array",
+                        "example": [
+                            "Yes",
+                            "No"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "sendingList": {
+                "required": [
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "buttonText": {
+                        "type": "string",
+                        "example": "Menu"
+                    },
+                    "text": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Menu"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": " "
+                    },
+                    "sections": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ListSection"
+                        }
+                    }
+                }
+            },
+            "ListSection": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Pizza"
+                    },
+                    "rows": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ListRow"
+                        }
+                    }
+                }
+            },
+            "ListRow": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "Pizza 01"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Example pizza 01"
+                    },
+                    "rowId": {
+                        "type": "string",
+                        "example": "1"
+                    }
+                }
+            },
+            "sendingImageBase64": {
+                "required": [
+                    "base64",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "base64": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "caption": {
+                        "type": "string"
+                    }
+                }
+            },
+            "sendingAudioBase64": {
+                "required": [
+                    "base64",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "base64": {
+                        "minLength": 1,
+                        "type": "string"
+                    }
+                }
+            },
+            "sendingDocumentBase64": {
+                "required": [
+                    "base64",
+                    "mimetype",
+                    "to"
+                ],
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "minLength": 1,
+                        "type": "string",
+                        "example": "556696852025"
+                    },
+                    "base64": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "mimetype": {
+                        "minLength": 1,
+                        "type": "string"
+                    },
+                    "fileName": {
+                        "type": "string"
+                    },
+                    "caption": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}
