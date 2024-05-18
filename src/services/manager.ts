@@ -19,10 +19,10 @@ export default class Manager {
         port = Math.floor(Math.random() * 1000) + 3000;
         increment_port = port.toString().length === 1 ? '400' : (port.toString().length === 2 ? '40' : (port.toString().length === 3 ? '4' : ''));
       }
-
+      
       const containerConfig = {
         Image: image,
-        name: `api-${key}`,
+        name: key,
         ExposedPorts: {
           "3001/tcp": {}
         },
@@ -38,14 +38,18 @@ export default class Manager {
           },
           Binds: [
             "/home/wa:/home/wa",
-            `/home/wa/tokens/api-${key}:/home/wa/tokens`
+            `/home/wa/tokens/${key}:/home/wa/tokens`
+          ],
+          Env: [
+            `KEY=${key}`,
+            `EXAMPLE_NUMBER="556696852025"`
           ],
           PublishAllPorts: true
         }
       };
       const container = await dc.container.create(containerConfig);
       await container.start();
-      createFile(`api-${key}`, increment_port + port.toString());
+      createFile(key, increment_port + port.toString());
       return { status: 200 };
     } catch (error: any) {
       return { status: 500, message: error?.message };
