@@ -32,4 +32,8 @@ GET/v2/ADMIN_KEY/key/delete //delete a container
 
 ```sh
 docker build -t name  /path
+docker stop $(docker ps -q)  
+docker rm $(docker ps -a -q)
+docker rmi
+
 ```
