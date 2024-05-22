@@ -1,25 +1,21 @@
 import { Docker } from 'node-docker-api';
 import tcpPortUsed from 'tcp-port-used';
-//@ts-ignore
-import execShPromise from 'exec-sh';
 import { envs } from '../configs/env';
 import { createFile, removeFile } from './nginx';
 
 const dc = new Docker({ socketPath: envs.socketPath });
 const image = envs.imageName;
-
 export default class Manager {
+
   static async run(key: string) {
     try {
       const memoria = 1048576 * 100;
       let port = Math.floor(Math.random() * 1000) + 3000;
       let increment_port = port.toString().length === 1 ? '400' : (port.toString().length === 2 ? '40' : (port.toString().length === 3 ? '4' : ''));
-
       while (await tcpPortUsed.check(port, '127.0.0.1')) {
         port = Math.floor(Math.random() * 1000) + 3000;
         increment_port = port.toString().length === 1 ? '400' : (port.toString().length === 2 ? '40' : (port.toString().length === 3 ? '4' : ''));
       }
-      
       const containerConfig = {
         Image: image,
         name: key,
@@ -38,7 +34,7 @@ export default class Manager {
           },
           Binds: [
             "/home/wa:/home/wa",
-            `/home/wa/tokens/${key}:/home/wa/tokens`
+            `/home/wa/sessions/${key}:/home/wa/sessions`
           ],
           Env: [
             `KEY=${key}`,
@@ -69,13 +65,12 @@ export default class Manager {
     try {
       const containers = await this.getContainers();
       return containers.find((container: any) => {
-        return container.data.Names[0].replace('/', '') === name;
+        return container.data?.Names[0].replace('/', '') === name;
       });
     } catch (error) {
       throw error;
     }
   }
-
 
   static async startContainer(container: any) {
     try {
@@ -103,7 +98,7 @@ export default class Manager {
 
   static async startContainerByName(key: string) {
     try {
-      const containers = await this.getContainerByName("api-" + key);
+      const containers = await this.getContainerByName(key);
       if (!containers) {
         return { status: 404, message: "Container not found" };
       }
@@ -116,7 +111,7 @@ export default class Manager {
 
   static async stopContainerByName(key: string) {
     try {
-      const containers = await this.getContainerByName("api-" + key);
+      const containers = await this.getContainerByName(key);
       if (!containers) {
         return { status: 404, message: "Container not found" };
       }
@@ -127,15 +122,14 @@ export default class Manager {
     }
   }
 
-
   static async deleteContainerByName(key: string) {
     try {
-      const containers = await this.getContainerByName("api-" + key);
+      const containers = await this.getContainerByName(key);
       if (!containers) {
         return { status: 404, message: "Container not found" };
       }
       await this.deleteContainer(containers);
-      removeFile("api-" + key)
+      removeFile(key)
       return { status: 200 };
     } catch (error: any) {
       return { status: 500, message: error.message };
@@ -144,14 +138,15 @@ export default class Manager {
 
   static async listContainers() {
     try {
-      let command = await execShPromise('docker ps --format \'{{json .}}\'', true);
-      const stdoutString = String(command.stdout);
-      const lines = stdoutString.trim().split('\n');
-      const containers = lines.map(line => JSON.parse(line));
-      if (containers.length === 0) {
-        return { status: 200, message: 'No containers are currently running.' };
-      }
-      return { status: 200, containers };
+      const containers = await this.getContainers();
+      const containersData = containers.map((container: any) => ({
+        id: container.data.Id,
+        name: container.data.Names[0]?.replace('/', ''),
+        image: container.data.Image,
+        state: container.data.State,
+        status: container.data.Status
+      }));
+      return { status: 200, total: containersData.length, containers: containersData };
     } catch (error: any) {
       return { status: 500, message: error.message };
     }
