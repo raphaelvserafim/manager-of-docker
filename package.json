@@ -19,16 +19,21 @@
     "flatted": "^3.1.1",
     "koa": "^2.15.3",
     "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "koa2-swagger-ui": "^5.10.0",
     "node-docker-api": "^1.1.22",
     "node-wget-js": "^1.0.1",
+    "swagger-koa": "^2.1.0",
     "swagger-ui-koa": "^0.0.1",
-    "tcp-port-used": "^1.0.2"
+    "tcp-port-used": "^1.0.2",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/docker-modem": "^3.0.6",
     "@types/koa": "^2.15.0",
     "@types/koa-router": "^7.4.8",
     "@types/tcp-port-used": "^1.0.4",
+    "@types/yamljs": "^0.2.34",
     "typescript": "^5.4.5"
   }
 }
