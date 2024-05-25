@@ -10,10 +10,10 @@ export default class Manager {
   static async run(key: string) {
     try {
       const memoria = 1048576 * 100;
-      let port = Math.floor(Math.random() * 1000) + 3000;
+      let port = Math.floor(Math.random() * 10000) + 3000;
       let increment_port = port.toString().length === 1 ? '400' : (port.toString().length === 2 ? '40' : (port.toString().length === 3 ? '4' : ''));
       while (await tcpPortUsed.check(port, '127.0.0.1')) {
-        port = Math.floor(Math.random() * 1000) + 3000;
+        port = Math.floor(Math.random() * 10000) + 3000;
         increment_port = port.toString().length === 1 ? '400' : (port.toString().length === 2 ? '40' : (port.toString().length === 3 ? '4' : ''));
       }
       const containerConfig = {
