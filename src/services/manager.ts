@@ -19,6 +19,7 @@ export default class Manager {
       const containerConfig = {
         Image: image,
         name: key,
+        Env: [`KEY=${key}`, `EXAMPLE_NUMBER="556696852025"`],
         ExposedPorts: {
           "3001/tcp": {}
         },
@@ -33,12 +34,8 @@ export default class Manager {
             }]
           },
           Binds: [
-            "/home/wa:/home/wa",
+            "/home/wa:/home/wa/api",
             `/home/wa/sessions/${key}:/home/wa/sessions`
-          ],
-          Env: [
-            `KEY=${key}`,
-            `EXAMPLE_NUMBER="556696852025"`
           ],
           PublishAllPorts: true
         }
