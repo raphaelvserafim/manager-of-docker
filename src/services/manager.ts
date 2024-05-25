@@ -9,7 +9,7 @@ export default class Manager {
 
   static async run(key: string) {
     try {
-      const memoria = 1048576 * 100;
+      const memoria = 512 * 1048576;
       let port = Math.floor(Math.random() * 10000) + 3000;
       let increment_port = port.toString().length === 1 ? '400' : (port.toString().length === 2 ? '40' : (port.toString().length === 3 ? '4' : ''));
       while (await tcpPortUsed.check(port, '127.0.0.1')) {
