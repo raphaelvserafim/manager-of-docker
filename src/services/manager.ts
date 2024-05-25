@@ -26,8 +26,8 @@ export default class Manager {
         HostConfig: {
           Memory: memoria,
           MemorySwap: memoria * 2,
-          MemorySwappiness: 100,
-          RestartPolicy: { Name: "always", MaximumRetryCount: 0 },
+          MemorySwappiness: 60,
+          RestartPolicy: { Name: "always", MaximumRetryCount: 5 },
           PortBindings: {
             "3001/tcp": [{
               "HostPort": increment_port + port
