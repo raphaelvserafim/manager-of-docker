@@ -34,7 +34,7 @@ export default class Manager {
             }]
           },
           Binds: [
-            "/home/wa:/home/wa/api",
+            "/home/wa:/home/wa",
             `/home/wa/sessions/${key}:/home/wa/sessions`
           ],
           PublishAllPorts: true
