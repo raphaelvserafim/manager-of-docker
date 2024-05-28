@@ -73,6 +73,9 @@ export default class Manager {
   static async info(name: string) {
     try {
       const container = await this.getContainerByName(name);
+      if (!container) {
+        throw new Error('Container not found');
+      }
       return { status: 200, id: container?.id, };
     } catch (error: any) {
       return { status: 500, message: error.message };
