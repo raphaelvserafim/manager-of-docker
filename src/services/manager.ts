@@ -82,9 +82,9 @@ export default class Manager {
     }
   }
 
-  static async restartContainer(id: string) {
+  static async restartContainer(name: string) {
     try {
-      const container = dc.container.get(id);
+      const container = await this.getContainerByName(name);
       if (!container) {
         return { status: 404, message: "Container not found" };
       }
