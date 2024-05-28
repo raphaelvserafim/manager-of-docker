@@ -76,9 +76,8 @@ export default class Manager {
         throw new Error('Container not found');
       }
       const logs = await container.logs();
-      const status = await container.status();
-
-      return { status: 200, container: { id: container?.id, logs: JSON.stringify(logs), status } };
+       
+      return { status: 200, container: { id: container?.id, logs: logs.toString() } };
     } catch (error: any) {
       return { status: 500, message: error.message };
     }
