@@ -78,7 +78,7 @@ export default class Manager {
       const logs = await container.logs();
       const status = await container.status();
 
-      return { status: 200, container: { id: container?.id, logs, status } };
+      return { status: 200, container: { id: container?.id, logs: JSON.stringify(logs), status } };
     } catch (error: any) {
       return { status: 500, message: error.message };
     }
