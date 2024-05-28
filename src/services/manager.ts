@@ -27,7 +27,7 @@ export default class Manager {
           Memory: memoria,
           MemorySwap: memoria * 2,
           MemorySwappiness: 60,
-          RestartPolicy: { Name: "always", MaximumRetryCount: 5 },
+          RestartPolicy: { Name: "always", MaximumRetryCount: 0 },
           PortBindings: {
             "3001/tcp": [{
               "HostPort": increment_port + port
@@ -69,64 +69,64 @@ export default class Manager {
     }
   }
 
-  static async startContainer(container: any) {
+
+  static async info(name: string) {
     try {
-      return await container.start();
-    } catch (error) {
-      throw error;
+      const container = await this.getContainerByName(name);
+      return { status: 200, id: container?.id, };
+    } catch (error: any) {
+      return { status: 500, message: error.message };
     }
   }
 
-  static async stopContainer(container: any) {
+  static async restartContainer(id: string) {
     try {
-      return await container.stop();
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async deleteContainer(container: any) {
-    try {
-      await this.stopContainer(container).then(container => container.delete({ v: true }));
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  static async startContainerByName(key: string) {
-    try {
-      const containers = await this.getContainerByName(key);
-      if (!containers) {
+      const container = dc.container.get(id);
+      if (!container) {
         return { status: 404, message: "Container not found" };
       }
-      await this.startContainer(containers);
+      await container.restart();
       return { status: 200 };
     } catch (error: any) {
       return { status: 500, message: error.message };
     }
   }
 
-  static async stopContainerByName(key: string) {
+
+  static async startContainer(id: string) {
     try {
-      const containers = await this.getContainerByName(key);
-      if (!containers) {
+      const container = dc.container.get(id);
+      if (!container) {
         return { status: 404, message: "Container not found" };
       }
-      await this.stopContainer(containers);
+      await container.start();
       return { status: 200 };
     } catch (error: any) {
       return { status: 500, message: error.message };
     }
   }
 
-  static async deleteContainerByName(key: string) {
+  static async stopContainer(id: string) {
     try {
-      const containers = await this.getContainerByName(key);
-      if (!containers) {
+      const container = dc.container.get(id);
+      if (!container) {
         return { status: 404, message: "Container not found" };
       }
-      await this.deleteContainer(containers);
-      removeFile(key)
+      await container.stop();
+      return { status: 200 };
+    } catch (error: any) {
+      return { status: 500, message: error.message };
+    }
+  }
+
+  static async deleteContainer(id: string) {
+    try {
+      const container = dc.container.get(id);
+      if (!container) {
+        return { status: 404, message: "Container not found" };
+      }
+      await container.delete({ v: true });
+      removeFile(id);
       return { status: 200 };
     } catch (error: any) {
       return { status: 500, message: error.message };
