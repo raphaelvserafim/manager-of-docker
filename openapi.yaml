@@ -1,0 +1,1925 @@
+openapi: 3.0.1
+info:
+  version: 5.0.0
+  title: Documentation API
+  contact:
+    name: Support
+    url: https://api-wa.me
+    email: support@api-wa.me
+servers:
+  - url: https://us.api-wa.me
+    description: ''
+  - url: http://server.api-wa.me
+    description: ''
+paths:
+  /{key}/instance:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Get instance information
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Instance
+      operationId: instanceInfo
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Connect
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Instance
+      operationId: instanceConnect
+    patch:
+      responses:
+        '200':
+          description: Success
+      description: mark message as read and save media
+      summary: Setting
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: query
+          required: true
+          name: markMessageRead
+          schema:
+            type: boolean
+            enum:
+              - false
+              - true
+            example: false
+        - in: query
+          required: true
+          name: saveMedia
+          schema:
+            type: boolean
+            enum:
+              - false
+              - true
+            example: false
+        - in: query
+          required: true
+          name: receiveStatusMessage
+          schema:
+            type: boolean
+            enum:
+              - false
+              - true
+            example: false
+      tags:
+        - Instance
+      operationId: instanceSetting
+    put:
+      responses:
+        '200':
+          description: Success
+      summary: Update webhook
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+      tags:
+        - Instance
+      operationId: instanceWebhook
+    delete:
+      responses:
+        '200':
+          description: Success
+      summary: Logout
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Instance
+      operationId: instanceLogout
+  /{key}/instance/restart:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Restart instance (container)
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Instance
+      operationId: instanceRestart
+  /{key}/instance/pairing-code:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: ConnectPairing Code
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              properties:
+                phoneNumber:
+                  type: string
+              type: object
+      tags:
+        - Instance
+      operationId: instanceRequestPairingCode
+  /{key}/instance/session:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Migration get session
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Instance
+      operationId: instanceGetSession
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Migration save session
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+      tags:
+        - Instance
+      operationId: instanceSaveSession
+  /{key}/instance/webhook/error:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Get error webhook
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Instance
+      operationId: instanceShowsWebhook
+    delete:
+      responses:
+        '200':
+          description: Success
+      summary: Restart error webhook
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Instance
+      operationId: instanceResetErrorsWebook
+  /{key}/message:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: List all messages
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: phoneNumber
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      tags:
+        - Message
+      operationId: messageListAll
+  /{key}/message/presence:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a presence update
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingPresence'
+      tags:
+        - Message
+      operationId: messageSendingPresence
+  /{key}/message/text:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a text message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingText'
+      tags:
+        - Message
+      operationId: messageSendingTex
+  /{key}/message/title:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a text message with title and footer
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendWithTitleAndFooter'
+      tags:
+        - Message
+      operationId: messageSendWithTitleAndFooter
+  /{key}/message/audio:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send an audio message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingAudio'
+      tags:
+        - Message
+      operationId: messageSendingAudio
+  /{key}/message/image:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send an image message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingImage'
+      tags:
+        - Message
+      operationId: messageSendingImage
+  /{key}/message/video:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a video message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingVideo'
+      tags:
+        - Message
+      operationId: messageSendingVideo
+  /{key}/message/document:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a document message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingDocument'
+      tags:
+        - Message
+      operationId: messageSendingDocument
+  /{key}/message/contact:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a contact message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingContact'
+      tags:
+        - Message
+      operationId: messageSendingContact
+  /{key}/message/location:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a location message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingLocation'
+      tags:
+        - Message
+      operationId: messageSendingLocation
+  /{key}/message/link:
+    post:
+      responses:
+        '200':
+          description: Success
+      description: >-
+        If you don't want to send a personalized link, just send the URL in a
+        text message.
+      summary: Sending personalized link
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingLink'
+      tags:
+        - Message
+      operationId: messageSendingLink
+  /{key}/message/reaction:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a reaction message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingReaction'
+      tags:
+        - Message
+      operationId: messageSendingReaction
+  /{key}/message/survey:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a survey message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingSurvey'
+      tags:
+        - Message
+      operationId: messageSendingSurvey
+  /{key}/message/list:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a list message (does not work on all devices)
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingList'
+      tags:
+        - Message
+      operationId: messageSendingList
+  /{key}/message/button:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a button message (does not work on all devices)
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ButtonMessage'
+      tags:
+        - Message
+      operationId: messageSendingButton
+  /{key}/message/base64/image:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send an image message encoded in base64
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingImageBase64'
+      tags:
+        - Message
+      operationId: messageSendingImageBase64
+  /{key}/message/base64/audio:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send an audio message encoded in base64
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingAudioBase64'
+      tags:
+        - Message
+      operationId: messageSendingAudioBase64
+  /{key}/message/base64/document:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a document message encoded in base64
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingDocumentBase64'
+      tags:
+        - Message
+      operationId: messageSendingDocumentBase64
+  /{key}/message/{id}/text:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Reply to a message with text
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingText'
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageSendingReplyText
+  /{key}/message/{id}/title:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Send a text message with title and footer
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendWithTitleAndFooter'
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageSendWithTitleAndFooter
+  /{key}/message/{id}/audio:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Reply to a message with audio
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingAudio'
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageSendingReplyAudio
+  /{key}/message/{id}/image:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Reply to a message with image
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingImage'
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageSendingReplyImage
+  /{key}/message/{id}/video:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Reply to a message with video
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingVideo'
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageSendingReplyVideo
+  /{key}/message/{id}/document:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Reply to a message with document
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingDocument'
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageSendingReplyDocument
+  /{key}/message/{id}/contact:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Reply to a message with contact
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingContact'
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageSendingReplyContact
+  /{key}/message/{id}/location:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Reply to a message with  location
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sendingLocation'
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageSendingReplyLocation
+  /{key}/message/{id}/forwarding:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Forwarding Messages
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              properties:
+                to:
+                  type: string
+                  example: '14375223417'
+              type: object
+      tags:
+        - Reply to a message
+      operationId: replyToAMessageForwardingMessages
+  /{key}/call/{id}/{from}:
+    delete:
+      responses:
+        '200':
+          description: Success
+      summary: Rejecting a call
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: from
+          required: true
+          schema:
+            type: string
+      tags:
+        - Call
+      operationId: callReject
+  /{key}/actions/registered:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Check if number is registered on whatsapp
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: number
+          required: false
+          schema:
+            type: string
+      tags:
+        - Actions
+      operationId: actionsOnWhatsApp
+  /{key}/actions/download/media:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Download media from a specific message
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: query
+          required: true
+          name: type
+          schema:
+            type: string
+            enum:
+              - image
+              - video
+              - sticker
+              - audio
+              - document
+            example: image
+            minLength: 1
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DownloadableMessage'
+      tags:
+        - Actions
+      operationId: actionsDownload
+  /{key}/actions/picture:
+    put:
+      responses:
+        '200':
+          description: Success
+      summary: Update profile picture
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              properties:
+                url:
+                  type: string
+              type: object
+      tags:
+        - Actions
+      operationId: actionsUpdateProfilePicture
+  /{key}/actions/storage:
+    delete:
+      responses:
+        '200':
+          description: Success
+      summary: Delete media folder
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Actions
+      operationId: actionsDeleteS3
+  /{key}/contacts:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: List all contacts
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Contacts
+      operationId: contactsList
+  /{key}/contacts/{number}:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Contact profile
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: string
+      tags:
+        - Contacts
+      operationId: contactsProfile
+    patch:
+      responses:
+        '200':
+          description: Success
+      summary: Block and unblock profile
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: string
+        - in: query
+          required: true
+          name: action
+          schema:
+            type: string
+            enum:
+              - block
+              - unblock
+            example: block
+            minLength: 1
+      tags:
+        - Contacts
+      operationId: contactsBlock
+  /{key}/groups:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Get the list of all groups
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Groups
+      operationId: groupsList
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Create a new group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupCreate'
+      tags:
+        - Groups
+      operationId: groupsCreate
+  /{key}/groups/{id}:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Get information about a specific group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      tags:
+        - Groups
+      operationId: groupsInfo
+    put:
+      responses:
+        '200':
+          description: Success
+      summary: Update a specific group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupUpdate'
+      tags:
+        - Groups
+      operationId: groupsUpdate
+    patch:
+      responses:
+        '200':
+          description: Success
+      summary: Change settings of a specific group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: query
+          required: true
+          name: setting
+          schema:
+            type: string
+            enum:
+              - announcement
+              - not_announcement
+              - locked
+              - unlocked
+            example: announcement
+            minLength: 1
+      tags:
+        - Groups
+      operationId: groupsChangeSettings
+    delete:
+      responses:
+        '200':
+          description: Success
+      summary: Leave a specific group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      tags:
+        - Groups
+      operationId: groupsLeave
+  /{key}/groups/{id}/invite:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Get the invite code for a specific group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      tags:
+        - Groups
+      operationId: groupsGetInviteCode
+  /{key}/groups/{id}/picture:
+    put:
+      responses:
+        '200':
+          description: Success
+      summary: Update picture
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              properties:
+                url:
+                  type: string
+              type: object
+      tags:
+        - Groups
+      operationId: groupsUpdateProfilePicture
+  /{key}/groups/{id}/participants:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Add users to a specific group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupParticipants'
+      tags:
+        - Groups
+      operationId: groupsAddUsers
+    delete:
+      responses:
+        '200':
+          description: Success
+      summary: Remove users from a specific group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupParticipants'
+      tags:
+        - Groups
+      operationId: groupsRemoveUsers
+  /{key}/groups/{id}/role:
+    patch:
+      responses:
+        '200':
+          description: Success
+      summary: Promote or demote a user in a specific group
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+        - in: query
+          required: true
+          name: action
+          schema:
+            type: string
+            enum:
+              - promote
+              - demote
+            example: promote
+            minLength: 1
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/groupParticipants'
+      tags:
+        - Groups
+      operationId: groupsUpdateUserRole
+  /{key}/business/catalog:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: List all collections
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+      tags:
+        - Business
+      operationId: businessCollections
+  /{key}/business/catalog/{catalogId}:
+    get:
+      responses:
+        '200':
+          description: Success
+      summary: Catalog by id
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: catalogId
+          required: true
+          schema:
+            type: string
+      tags:
+        - Business
+      operationId: businessCatalogs
+  /{key}/business/catalog/{catalogId}/product:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: Create a product
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: catalogId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      tags:
+        - Business
+      operationId: businessProductCreate
+  /{key}/business/catalog/{catalogId}/product/{productId}:
+    put:
+      responses:
+        '200':
+          description: Success
+      summary: Update a product
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: catalogId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      tags:
+        - Business
+      operationId: businessProductUpdate
+    delete:
+      responses:
+        '200':
+          description: Success
+      summary: Delete a product
+      parameters:
+        - in: path
+          name: key
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: catalogId
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: productId
+          required: true
+          schema:
+            type: string
+      tags:
+        - Business
+      operationId: businessProductDelete
+tags:
+  - name: Instance
+  - name: Message
+  - name: Reply to a message
+  - name: Call
+  - name: Actions
+  - name: Contacts
+  - name: Groups
+  - name: Business
+components:
+  schemas:
+    Webhook:
+      type: object
+      properties:
+        allowWebhook:
+          type: boolean
+          example: true
+          enum:
+            - true
+            - false
+        webhookMessage:
+          type: string
+          example: ''
+        webhookGroup:
+          type: string
+          example: ''
+        webhookConnection:
+          type: string
+          example: ''
+        webhookQrCode:
+          type: string
+          example: ''
+        webhookMessageFromMe:
+          type: string
+          example: ''
+        webhookHistory:
+          type: string
+          example: ''
+      required:
+        - allowWebhook
+    sendingPresence:
+      type: object
+      properties:
+        to:
+          type: string
+          example: '14375223417'
+          minLength: 1
+        status:
+          type: string
+          enum:
+            - unavailable
+            - available
+            - composing
+            - recording
+            - paused
+          example: composing
+          minLength: 1
+      required:
+        - to
+        - status
+    sendingText:
+      type: object
+      properties:
+        to:
+          type: string
+          example: '14375223417'
+          minLength: 1
+        text:
+          type: string
+          example: Hey !
+          minLength: 1
+      required:
+        - to
+        - text
+    sendWithTitleAndFooter:
+      type: object
+      properties:
+        to:
+          type: string
+          example: '14375223417'
+          minLength: 1
+        title:
+          type: string
+          example: Raphael Serafim
+          minLength: 1
+        text:
+          type: string
+          example: Hey !
+          minLength: 1
+        footer:
+          type: string
+          example: '# 123'
+          minLength: 1
+      required:
+        - to
+        - title
+        - text
+        - footer
+    sendingAudio:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        url:
+          type: string
+          minLength: 1
+          example: https://url-audio
+      required:
+        - to
+        - url
+    sendingImage:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        url:
+          type: string
+          minLength: 1
+          example: >-
+            https://a.cdn-hotels.com/gdcs/production190/d988/1071675e-1bd7-4a81-8b40-735eb9241410.jpg
+        caption:
+          type: string
+          example: Toronto
+      required:
+        - to
+        - url
+    sendingVideo:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        url:
+          type: string
+          minLength: 1
+          example: https://url-video
+        caption:
+          type: string
+      required:
+        - to
+        - url
+    sendingDocument:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        url:
+          type: string
+          minLength: 1
+        mimetype:
+          type: string
+          minLength: 1
+        fileName:
+          type: string
+        caption:
+          type: string
+      required:
+        - to
+        - url
+        - mimetype
+    sendingContact:
+      type: object
+      properties:
+        to:
+          type: string
+          example: '14375223417'
+          minLength: 1
+        contact:
+          $ref: '#/components/schemas/Contact'
+      required:
+        - to
+        - contact
+    Contact:
+      type: object
+      properties:
+        fullName:
+          type: string
+          example: Raphael Serafim
+          minLength: 1
+        organization:
+          type: string
+          example: api-wa.me
+        phoneNumber:
+          type: string
+          example: '14375223417'
+          minLength: 1
+      required:
+        - fullName
+        - phoneNumber
+    sendingLocation:
+      type: object
+      properties:
+        to:
+          type: string
+          example: '14375223417'
+          minLength: 1
+        location:
+          $ref: '#/components/schemas/Location'
+      required:
+        - to
+        - location
+    Location:
+      type: object
+      properties:
+        latitude:
+          type: number
+          example: 37.7749
+        longitude:
+          type: number
+          example: -122.4194
+        address:
+          type: string
+          example: 123 Main St, San Francisco, CA
+          minLength: 1
+      required:
+        - latitude
+        - longitude
+        - address
+    sendingLink:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        title:
+          type: string
+          minLength: 1
+          example: Raphael Serafim
+        text:
+          type: string
+          minLength: 1
+        description:
+          type: string
+          example: Software Developer
+        thumbnailUrl:
+          type: string
+          example: https://avatars.githubusercontent.com/u/68257896
+          minLength: 1
+        sourceUrl:
+          type: string
+          example: https://github.com/raphaelvserafim
+          minLength: 1
+      required:
+        - to
+        - title
+        - text
+        - thumbnailUrl
+        - sourceUrl
+    sendingReaction:
+      type: object
+      properties:
+        to:
+          type: string
+          example: '14375223417'
+          minLength: 1
+        text:
+          type: string
+          example: 👽
+          minLength: 1
+        msgId:
+          type: string
+          example: ABSHDGHRYA
+          minLength: 1
+      required:
+        - to
+        - text
+        - msgId
+    sendingSurvey:
+      type: object
+      properties:
+        to:
+          type: string
+          example: '14375223417'
+          minLength: 1
+        name:
+          type: string
+          example: Do you like PHP?
+          minLength: 1
+        options:
+          type: array
+          items:
+            type: string
+          example:
+            - 'Yes'
+            - 'No'
+      required:
+        - to
+        - name
+        - options
+    sendingList:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        buttonText:
+          type: string
+          example: Menu
+        text:
+          type: string
+        title:
+          type: string
+          example: Menu
+        description:
+          type: string
+          example: Description
+        footer:
+          type: string
+          example: footer
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListSection'
+      required:
+        - to
+    ListSection:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Pizza
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/ListRow'
+    ListRow:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Pizza 01
+        description:
+          type: string
+          example: Example pizza 01
+        rowId:
+          type: string
+          example: '1'
+    ButtonMessage:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        title:
+          type: string
+          example: Are you enjoying ?
+          minLength: 1
+        footer:
+          type: string
+          example: choose an option
+        buttons:
+          type: array
+          items:
+            $ref: '#/components/schemas/Button'
+          example:
+            - type: quick_reply
+              id: click_1
+              text: 'Yes'
+            - type: cta_copy
+              copy_code: '1234567890'
+              text: Copy barcode
+            - type: cta_url
+              url: https://api-wa.me
+              text: Access the website
+            - type: send_location
+      required:
+        - to
+        - title
+    Button:
+      type: object
+      properties:
+        type:
+          type: string
+          example: quick_reply
+        id:
+          type: string
+          example: click_1
+        text:
+          type: string
+          example: Click here 001
+        url:
+          type: string
+          example: https://api-wa.me
+        copy_code:
+          type: string
+          example: '1234567890'
+    sendingImageBase64:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        base64:
+          type: string
+          minLength: 1
+        caption:
+          type: string
+      required:
+        - to
+        - base64
+    sendingAudioBase64:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        base64:
+          type: string
+          minLength: 1
+      required:
+        - to
+        - base64
+    sendingDocumentBase64:
+      type: object
+      properties:
+        to:
+          type: string
+          minLength: 1
+          example: '14375223417'
+        base64:
+          type: string
+          minLength: 1
+        mimetype:
+          type: string
+          minLength: 1
+        fileName:
+          type: string
+        caption:
+          type: string
+      required:
+        - to
+        - base64
+        - mimetype
+    DownloadableMessage:
+      type: object
+      properties:
+        mediaKey:
+          type: string
+          minLength: 1
+        directPath:
+          type: string
+          minLength: 1
+        url:
+          type: string
+          minLength: 1
+      required:
+        - mediaKey
+        - directPath
+        - url
+    groupCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Devs
+          minLength: 1
+        participants:
+          type: array
+          example:
+            - '14375223417'
+      required:
+        - name
+        - participants
+    groupUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Devs
+          minLength: 1
+        description:
+          type: string
+          example: is description
+          minLength: 1
+      required:
+        - name
+        - description
+    groupParticipants:
+      type: object
+      properties:
+        participants:
+          type: array
+          example:
+            - '14375223417'
+      required:
+        - participants
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Ovo
+        description:
+          type: string
+          example: Ovo Branco
+        originCountryCode:
+          type: string
+          example: BR
+        currency:
+          type: string
+          example: BRL
+        price:
+          type: number
+          example: 20
+        images:
+          type: array
+          example:
+            - url: https://example.com/image.jpg

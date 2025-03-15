@@ -139,7 +139,7 @@ export default class Manager {
     try {
       const containers = await this.getContainers();
       const containersData = containers.map((container: any) => ({
-        id: container.data.Id,
+        // id: container.data.Id,
         name: container.data.Names[0]?.replace('/', ''),
         image: container.data.Image,
         state: container.data.State,
