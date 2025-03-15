@@ -26,7 +26,7 @@ router.get('/adm/:token/:key/start', verifyToken, startRouteHandler);
 router.get('/adm/:token/:key/stop', verifyToken, stopRouteHandler);
 router.get('/adm/:token/:key/delete', verifyToken, deleteRouteHandler);
 
-const spec = yamljs.load(path.join(__dirname, '../api.yml'));
+const spec = yamljs.load(path.join(__dirname, '../openapi.yaml'));
 
 router.use(koaSwagger({ swaggerOptions: { spec } }));
 
